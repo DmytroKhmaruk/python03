@@ -2,7 +2,7 @@ import sys
 
 
 def main() -> None:
-    inventory = {}
+    inventory: dict[str, int] = {}
     print("=== Inventory System Analysis ===")
     if len(sys.argv) < 2:
         print("No arguments provided!")
@@ -20,9 +20,9 @@ def main() -> None:
                 if key in inventory:
                     print(f"Redundant item '{key}' - discarding")
                     continue
-                value = int(value)
+                quantity = int(value)
 
-                inventory[key] = value
+                inventory[key] = quantity
             except ValueError as e:
                 print(f"Quantity error for '{key}': {e}")
     print(f"Got inventory: {inventory}")
@@ -37,9 +37,9 @@ def main() -> None:
     most_abundant = list(inventory.keys())[0]
     least_abundat = list(inventory.keys())[0]
     for item in inventory:
-        value = inventory[item]
-        value = value / total_quantity * 100
-        print(f"Item {item} represents {round(value, 1)}%")
+        quantity = inventory[item]
+        print(f"Item {item} represents "
+              f"{round((quantity / total_quantity * 100), 1)}%")
         if inventory[item] > inventory[most_abundant]:
             most_abundant = item
         if inventory[item] < inventory[least_abundat]:
@@ -48,9 +48,7 @@ def main() -> None:
           f"{inventory[most_abundant]}")
     print(f"Item least abundant: {least_abundat} with quantity "
           f"{inventory[least_abundat]}")
-    key = "magic_item"
-    value = 1
-    inventory.update({key: value})
+    inventory.update({"magic_item": 1})
     print(f"Updated inventory: {inventory}")
 
 
