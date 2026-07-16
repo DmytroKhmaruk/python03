@@ -21,7 +21,9 @@ def main() -> None:
                     print(f"Redundant item '{key}' - discarding")
                     continue
                 quantity = int(value)
-
+                if quantity < 1:
+                    print(f"Error - quantity < 1 '{item}'")
+                    continue
                 inventory[key] = quantity
             except ValueError as e:
                 print(f"Quantity error for '{key}': {e}")
@@ -35,19 +37,19 @@ def main() -> None:
     print(f"Total quantity of the {len(inventory)} items: {total_quantity}")
 
     most_abundant = list(inventory.keys())[0]
-    least_abundat = list(inventory.keys())[0]
+    least_abundant = list(inventory.keys())[0]
     for item in inventory:
         quantity = inventory[item]
         print(f"Item {item} represents "
               f"{round((quantity / total_quantity * 100), 1)}%")
         if inventory[item] > inventory[most_abundant]:
             most_abundant = item
-        if inventory[item] < inventory[least_abundat]:
-            least_abundat = item
+        if inventory[item] < inventory[least_abundant]:
+            least_abundant = item
     print(f"Item most abundant: {most_abundant} with quantity "
           f"{inventory[most_abundant]}")
-    print(f"Item least abundant: {least_abundat} with quantity "
-          f"{inventory[least_abundat]}")
+    print(f"Item least abundant: {least_abundant} with quantity "
+          f"{inventory[least_abundant]}")
     inventory.update({"magic_item": 1})
     print(f"Updated inventory: {inventory}")
 
